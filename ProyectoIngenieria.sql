@@ -134,3 +134,138 @@ create proc AgregarUsuario
 as 
 insert into Usuarios (id, usuario, contraseña, tipo) values (@id, @usuario, @contraseña, @tipo) 
 
+------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+--MODIFICAR ALUMNOS
+create proc modAlumnos
+@Matricula int,
+@Nombre varchar (30),
+@ApP varchar (30),
+@ApM varchar (30),
+@Carrera varchar (20),
+@Telefono varchar (10),
+@Correo varchar (50),
+@NombreProyecto varchar (80),
+@Empresa varchar (30)
+as begin
+	update Alumnos set  Nombre=@Nombre, ApP=@ApP, ApM=@ApM, Carrera=@Carrera, Telefono=@Telefono, Correo=@Correo, NombreProyecto=@NombreProyecto, Empresa=@Empresa
+	where Matricula =@Matricula
+	end
+
+--MODIFICAR ASESORES
+create proc modAsesores
+@Id int, 
+@Nombre varchar (30),
+@ApP varchar (30),
+@ApM varchar (30),
+@Tipo varchar (20),
+@Telefono varchar (10),
+@Correo varchar (50),
+@Profesion varchar (30)
+as begin
+	update Asesores set Nombre=@Nombre, ApP=@ApP, ApM=@ApM, Tipo=@Tipo, Telefono=@Telefono, Correo=@Correo, Profesion=@Profesion
+	where Id=@Id
+	end
+--MODIFICAR CITAS
+create proc modCitas
+@Clave int,
+@Matricula int,
+@Id int,
+@Hora datetime
+as begin 
+	update Citas set Matricula=@Matricula, Id=@Id, Hora=@Hora
+	where Clave=@Clave
+	end
+
+--MODIFICAR DOCUMENTACION
+create proc modDocumentacion
+@Folio int, 
+@Solicitud bit,
+@Anteproyecto bit,
+@Carta bit,
+@Dictamen bit,
+@Asignacion bit,
+@AsesorExt bit,
+@Seguimiento bit,
+@Registro bit,
+@CartaAgradecimiento bit,
+@CDInforme bit,
+@CDRes bit,
+@CartaAcep bit
+as begin	
+	update Documentacion set Solicitud=@Solicitud, Anteproyecto=@Anteproyecto, Carta=@Carta, Dictamen=@Dictamen, Asignacion=@Asignacion, AsesorExt=@AsesorExt, Seguimiento=@Seguimiento, Registro=@Registro, CartaAgradecimiento=@CartaAgradecimiento, CDInforme=@CDInforme, CDRes=@CDRes, CartaAcep=@CartaAcep
+	where Folio=@Folio
+	end 
+
+---MODIFICAR REGISTROS 
+create proc modRegistros
+@Matricula int, 
+@Servicio bit, 
+@Creditos bit, 
+@Calificacion int, 
+@Extra bit
+as begin 
+	update REQUISITOS set Servicio=@Servicio, Creditos=@Creditos, Calificacion=@Calificacion, Extra=@Extra
+	where Matricula=@Matricula
+	end
+
+---MODIFICAR USUARIOS
+create proc modUsuarios
+@id int, 
+@contraseña int, 
+@tip varchar (30)
+as begin 
+	update Usuarios set contraseña=@contraseña, tipo=@tip
+	where id=@id
+	end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+--ELIMINAR ALUMNOS
+create proc elimAlumnos
+@Matricula int 
+as 
+delete from Alumnos where Matricula=@Matricula
+
+--ELIMINAR ASESORES
+create proc elimAsesores
+@ID int
+as 
+delete from Asesores where Id=@ID
+
+--ELIMINAR CITAS
+create proc elimCitas
+@Clave int
+as 
+delete from Citas where Clave=@Clave
+
+--ELIMINAR DOCUMENTACION
+create proc elimDocumentacion
+@Folio int
+as 
+delete from Documentacion where Folio=@Folio
+
+--AGREGAR COLUMNA CALIFICACION A TABLA REQUISITOS
+alter table REQUISITOS add Calificacion int
+
+alter proc AgregarRequisistos
+@Matricula int, 
+@Servicio bit, 
+@Creditos bit, 
+@Calificacion int, 
+@Extra bit
+as
+insert into REQUISITOS (Matricula, Servicio, Creditos, Calificacion, Extra) values ( @Matricula, @Servicio, @Creditos,@Calificacion, @Extra)
+
+--ELIMINAR REQUISITOS
+create proc elimRequisitos
+@Matricula int
+as delete from REQUISITOS where Matricula=@Matricula
+
+--ELIMINAR USUARIOS
+create proc elimUsuarios
+@Usuario int
+as delete from Usuarios where Usuario=@Usuario
+
