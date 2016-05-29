@@ -295,3 +295,35 @@ usuario varchar(60) not null,
 fecha datetime not null,
 host varchar(50) not null
 )
+
+--BITACORA DE CITAS--
+create table Bitscora_Cita
+(
+id_BitCita int identity primary key,
+Hora_Nuevo DATETIME NOT NULL,
+Hora_Viejo DATETIME NOT NULL,
+operacion varchar(10) not null,
+usuario varchar(60) not null,
+fecha datetime not null,
+host varchar(50) not null
+)
+--BITACORA DE USUARIO--
+create table Bitscora_Usu
+(
+id_BitUsuario int identity primary key,
+contraseña_Nuevo varchar (30),
+contraseña_Viejo varchar (30),
+operacion varchar(10) not null,
+usuario varchar(60) not null,
+fecha datetime not null,
+host varchar(50) not null
+)
+
+--RELACION DE TABLA CITA-ALUMNOS--
+alter table Citas add foreign key (Matricula) references Alumnos (Matricula)
+
+--RELACION DE TABLA REQUISITOS-ALUMNOS--
+alter table REQUISITOS add foreign key (Matricula) references Alumnos (Matricula)
+
+--RELACION DE TABLA REQUISITOS-ALUMNOS--
+alter table Citas add foreign key (Id) references Asesores (Id)
