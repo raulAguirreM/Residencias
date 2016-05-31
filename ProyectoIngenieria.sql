@@ -300,8 +300,8 @@ host varchar(50) not null
 create table Bitscora_Cita
 (
 id_BitCita int identity primary key,
-Hora_Nuevo DATETIME NOT NULL,
-Hora_Viejo DATETIME NOT NULL,
+Hora_Nuevo DATETIME,
+Hora_Viejo DATETIME,
 operacion varchar(10) not null,
 usuario varchar(60) not null,
 fecha datetime not null,
@@ -327,3 +327,180 @@ alter table REQUISITOS add foreign key (Matricula) references Alumnos (Matricula
 
 --RELACION DE TABLA REQUISITOS-ALUMNOS--
 alter table Citas add foreign key (Id) references Asesores (Id)
+
+--TRIGGER PARA TABLA ALUMNOS INSERTAR--
+alter trigger InsertarAlum
+on Alumnos
+after insert
+as
+begin 
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	select @Telefono_nuevo=Telefono,@Telefono_viejo= null,@Correo_nuevo=Correo,@Correo_viejo=null
+	from inserted
+	
+	insert into Bitscora_Alum values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
+	end
+
+--TRIGGER PARA TABLA ALUMNOS ELIMINAR--
+create trigger EliminarAlum
+on Alumnos
+after delete
+as
+begin
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	select @Telefono_nuevo=Telefono,@Telefono_viejo= null,@Correo_nuevo=Correo,@Correo_viejo=null
+	from deleted
+ 
+ 	insert into Bitscora_Alum values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
+
+end
+
+
+--TRIGGER PARA TABLA ALUMNOS ACTUALIZAR--
+create trigger ActualizarAlum
+on Alumnos
+for update 
+as
+begin 
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	set @Telefono_nuevo=(select Telefono from inserted)
+	set @Correo_nuevo =(select Correo from inserted)
+	----
+	set @Telefono_viejo =(select Telefono from deleted)
+	set @Correo_viejo = (select Correo from deleted)
+	
+	insert into Bitscora_Alum values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
+
+end
+
+
+--TRIGGER PARA TABLA ASESORES INSERTAR--
+alter trigger InsertarAsesor
+on Asesores
+after insert
+as
+begin 
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	select @Telefono_nuevo=Telefono,@Telefono_viejo= null,@Correo_nuevo=Correo,@Correo_viejo=null
+	from inserted
+	
+	insert into Bitscora_Asesor values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
+	end
+	
+--TRIGGER PARA TABLA ASESORES ELIMINAR--
+create trigger EliminarAsesor
+on Asesores
+after delete
+as
+begin
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	select @Telefono_nuevo=Telefono,@Telefono_viejo= null,@Correo_nuevo=Correo,@Correo_viejo=null
+	from deleted
+ 
+ 	insert into Bitscora_Asesor values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
+
+end
+
+--TRIGGER PARA TABLA ASESORES ACTUALIZAR--
+create trigger ActualizarAsesor
+on Asesores
+for update 
+as
+begin 
+	declare @Telefono_nuevo varchar(10),@Telefono_viejo varchar (10),@Correo_nuevo varchar (50),@Correo_viejo varchar (50)
+	set @Telefono_nuevo=(select Telefono from inserted)
+	set @Correo_nuevo =(select Correo from inserted)
+	----
+	set @Telefono_viejo =(select Telefono from deleted)
+	set @Correo_viejo = (select Correo from deleted)
+	
+	insert into Bitscora_Asesor values(@Telefono_nuevo,@Telefono_viejo,@Correo_nuevo,@Correo_viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
+
+end
+
+--TRIGGER PARA TABLA CITAS INSERTAR--
+alter trigger InsertarCita
+on Citas
+after insert
+as
+begin 
+	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
+	select @Hora_Nuevo=Hora,@Hora_Viejo= null
+	from inserted
+	
+	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
+	end
+
+--TRIGGER PARA TABLA CITAS ELIMINAR--
+create trigger EliminarCita
+on Citas
+after delete
+as
+begin
+	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
+	select @Hora_Nuevo=Hora,@Hora_Viejo= null
+	from deleted
+ 
+ 	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
+
+end
+
+
+--TRIGGER PARA TABLA CITAS ACTUALIZAR--
+create trigger ActualizarCita
+on Citas
+for update 
+as
+begin 
+	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
+	set @Hora_Nuevo=(select Hora from inserted)
+	----
+	set Hora_Viejo =(select Hora from deleted)
+	
+	insert into Bitscora_Cita values(@Hora_Nuevo,Hora_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
+
+end
+
+
+--TRIGGER PARA TABLA USUARIOS INSERTAR--
+alter trigger InsertarUsu
+on Citas
+after insert
+as
+begin 
+	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	select @contraseña_Nuevo=contraseña ,@contraseña_Viejo= null
+	from inserted
+	
+	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
+	end
+
+--TRIGGER PARA TABLA USUARIOS ELIMINAR--
+create trigger EliminarUsu
+on Citas
+after delete
+as
+begin
+	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	select @contraseña_Nuevo=contraseña ,@contraseña_Viejo= null
+	from deleted
+ 
+ 	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
+
+end
+
+
+--TRIGGER PARA TABLA USUARIOS ACTUALIZAR--
+create trigger ActualizarUsu
+on Citas
+for update 
+as
+begin 
+	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	set @contraseña_Nuevo=(select contraseña  from inserted)
+	----
+	set @contraseña_Viejo =(select contraseña  from deleted)
+	
+	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
+
+end
