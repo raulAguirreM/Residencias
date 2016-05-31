@@ -27,6 +27,9 @@ Matricula INT NOT NULL,
 Id INT NOT NULL,
 Hora DATETIME NOT NULL)
 
+alter table Citas add foreign key (Matricula) references Alumnos(Matricula)
+alter table Citas add foreign key (ID) references Asesores(ID)
+
 CREATE TABLE Documentacion(
 Folio INT IDENTITY (2000,1) PRIMARY KEY,
 Solicitud BIT,
@@ -47,4 +50,6 @@ Matricula INT NOT NULL,
 Servicio BIT,
 Creditos BIT,
 Extra BIT)
+
+
 
