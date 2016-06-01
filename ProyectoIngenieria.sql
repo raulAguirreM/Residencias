@@ -86,7 +86,7 @@ create proc AgregarAsesores
 @Correo varchar (50),
 @Profesion varchar (30)
 as
-insert into Asesores (Id, Nombre, ApP, ApM, Tipo, Telefono, Correo, Profesion) values (@Id, @Nombre, @ApP, @ApM, @Tipo, @Telefono, @Correo, @Profesion)
+insert into Asesores (Nombre, ApP, ApM, Tipo, Telefono, Correo, Profesion) values ( @Nombre, @ApP, @ApM, @Tipo, @Telefono, @Correo, @Profesion)
 
 --AGREGAR CITAS
 create proc AgregarCitas
@@ -94,7 +94,7 @@ create proc AgregarCitas
 @Id int,
 @Hora datetime
 as 
-insert into Citas (Clave, Matricula, Id,Hora) values (@Clave, @Matricula, @Id, @Hora)
+insert into Citas (Matricula, Id,Hora) values (@Matricula, @Id, @Hora)
 
 --AGREGAR DOCUMENTACION
 create proc AgregarDocumentacion
@@ -111,7 +111,7 @@ create proc AgregarDocumentacion
 @CDRes bit,
 @CartaAcep bit
 as
-insert into Documentacion (Folio, Solicitud, Anteproyecto, Carta, Dictamen, Asignacion, AsesorExt, Seguimiento, Registro, CartaAgradecimiento, CDInforme, CDRes, CartaAcep) values (@Folio, @Solicitud, @Anteproyecto, @Carta, @Dictamen, @Asignacion, @AsesorExt, @Seguimiento, @Registro, @CartaAgradecimiento, @CDInforme, @CDRes, @CartaAcep)
+insert into Documentacion (Solicitud, Anteproyecto, Carta, Dictamen, Asignacion, AsesorExt, Seguimiento, Registro, CartaAgradecimiento, CDInforme, CDRes, CartaAcep) values (@Solicitud, @Anteproyecto, @Carta, @Dictamen, @Asignacion, @AsesorExt, @Seguimiento, @Registro, @CartaAgradecimiento, @CDInforme, @CDRes, @CartaAcep)
 
 --AGREAGAR REQUISITOS
 create proc AgregarRequisistos
@@ -135,7 +135,7 @@ create proc AgregarUsuario
 @contraseña varchar (30),
 @tipo varchar (30)
 as 
-insert into Usuarios (id, usuario, contraseña, tipo) values (@id, @usuario, @contraseña, @tipo) 
+insert into Usuarios (usuario, contraseña, tipo) values (@usuario, @contraseña, @tipo) 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
