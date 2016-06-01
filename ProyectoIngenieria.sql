@@ -78,7 +78,6 @@ insert into Alumnos (Matricula, Nombre, ApP, ApM, Carrera, Telefono, Correo, Nom
 
 --AGREGAR ASESORES
 create proc AgregarAsesores
-@Id int, 
 @Nombre varchar (30),
 @ApP varchar (30),
 @ApM varchar (30),
@@ -91,7 +90,6 @@ insert into Asesores (Id, Nombre, ApP, ApM, Tipo, Telefono, Correo, Profesion) v
 
 --AGREGAR CITAS
 create proc AgregarCitas
-@Clave int,
 @Matricula int,
 @Id int,
 @Hora datetime
@@ -100,7 +98,6 @@ insert into Citas (Clave, Matricula, Id,Hora) values (@Clave, @Matricula, @Id, @
 
 --AGREGAR DOCUMENTACION
 create proc AgregarDocumentacion
-@Folio int, 
 @Solicitud bit,
 @Anteproyecto bit,
 @Carta bit,
@@ -134,7 +131,6 @@ tipo varchar (30))
 
 --AGREGAR USUARIO
 create proc AgregarUsuario
-@id int, 
 @usuario int, 
 @contraseña varchar (30),
 @tipo varchar (30)
