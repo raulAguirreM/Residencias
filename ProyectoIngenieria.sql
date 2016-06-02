@@ -13,25 +13,26 @@ Empresa VARCHAR(30))
 
 CREATE TABLE Asesores(
 Id INT IDENTITY (000,1) PRIMARY KEY NOT NULL,
+Profesion VARCHAR(30),
 Nombre VARCHAR(30) NOT NULL,
 ApP VARCHAR (30) NOT NULL,
 ApM VARCHAR(30) NOT NULL,
 Tipo VARCHAR(20) NOT NULL,
 Telefono VARCHAR (10),
-Correo VARCHAR(50),
-Profesion VARCHAR(30))
+Correo VARCHAR(50)
+)
 
 CREATE TABLE Citas(
 Clave INT IDENTITY (1000,1) PRIMARY KEY,
 Matricula INT NOT NULL,
 Id INT NOT NULL,
-Hora DATETIME NOT NULL)
+Fecha DATETIME NOT NULL)
 
-alter table Citas add foreign key (Matricula) references Alumnos(Matricula)
-alter table Citas add foreign key (ID) references Asesores(ID)
+
 
 CREATE TABLE Documentacion(
 Folio INT IDENTITY (2000,1) PRIMARY KEY,
+matricula int,
 Solicitud BIT,
 Anteproyecto BIT,
 Carta BIT,
@@ -46,11 +47,20 @@ CDRes Bit,
 CartaAcep BIT)
 
 CREATE TABLE REQUISITOS(
+ClveRequisitos int identity primary key,
 Matricula INT NOT NULL,
 Servicio BIT,
 Creditos BIT,
-Extra BIT)
+Extra BIT,
+fecha datetime
+)
 
+--CREACION TABLA USUARIOS
+create table Usuarios(
+id int primary key identity,
+usuario int,
+contraseña varchar (30),
+tipo varchar (30))
 <<<<<<< HEAD
 
 
@@ -60,7 +70,7 @@ create procedure AgregaUsusario
 @contraseña varchar (30),
 @tipo varchar (20)
 as 
-insert into Usuario (usuario, contraseña, tipo) values (@usuario, @contraseña, @tipo)
+insert into Usuarios (usuario, contraseña, tipo) values (@usuario, @contraseña, @tipo)
 
 --AGREGAR ALUMNOS
 create proc AgregarAlumnos
@@ -94,9 +104,9 @@ create proc AgregarCitas
 @Clave int,
 @Matricula int,
 @Id int,
-@Hora datetime
+@Fecha datetime
 as 
-insert into Citas (Clave, Matricula, Id,Hora) values (@Clave, @Matricula, @Id, @Hora)
+insert into Citas (Clave, Matricula, Id,Fecha) values (@Clave, @Matricula, @Id, @Fecha)
 
 --AGREGAR DOCUMENTACION
 create proc AgregarDocumentacion
@@ -125,12 +135,7 @@ create proc AgregarRequisistos
 as
 insert into REQUISITOS (Matricula, Servicio, Creditos, Extra) values ( @Matricula, @Servicio, @Creditos, @Extra)
 
---CREACION TABLA USUARIOS
-create table Usuarios(
-id int primary key identity,
-usuario int,
-contraseña varchar (30),
-tipo varchar (30))
+
 
 --AGREGAR USUARIO
 create proc AgregarUsuario
@@ -181,7 +186,7 @@ create proc modCitas
 @Id int,
 @Hora datetime
 as begin 
-	update Citas set Matricula=@Matricula, Id=@Id, Hora=@Hora
+	update Citas set Matricula=@Matricula, Id=@Id, fecha=@Hora
 	where Clave=@Clave
 	end
 
@@ -210,10 +215,9 @@ create proc modRegistros
 @Matricula int, 
 @Servicio bit, 
 @Creditos bit, 
-@Calificacion int, 
 @Extra bit
 as begin 
-	update REQUISITOS set Servicio=@Servicio, Creditos=@Creditos, Calificacion=@Calificacion, Extra=@Extra
+	update REQUISITOS set Servicio=@Servicio, Creditos=@Creditos, Extra=@Extra
 	where Matricula=@Matricula
 	end
 
@@ -289,6 +293,8 @@ usuario varchar(60) not null,
 fecha datetime not null,
 host varchar(50) not null
 )
+
+--------------------------------------------------------------------
 --BITACORA DE ASESORES--
 create table Bitscora_Asesor
 (
@@ -302,6 +308,7 @@ usuario varchar(60) not null,
 fecha datetime not null,
 host varchar(50) not null
 )
+---------------------------------------------------------------------
 
 --BITACORA DE CITAS--
 create table Bitscora_Cita
@@ -314,6 +321,8 @@ usuario varchar(60) not null,
 fecha datetime not null,
 host varchar(50) not null
 )
+
+
 --BITACORA DE USUARIO--
 create table Bitscora_Usu
 (
@@ -332,11 +341,17 @@ alter table Citas add foreign key (Matricula) references Alumnos (Matricula)
 --RELACION DE TABLA REQUISITOS-ALUMNOS--
 alter table REQUISITOS add foreign key (Matricula) references Alumnos (Matricula)
 
---RELACION DE TABLA REQUISITOS-ALUMNOS--
+--RELACION DE TABLA CITA-ALUMNOS--
 alter table Citas add foreign key (Id) references Asesores (Id)
 
+--RELACION DE TABLA DOCUMENTACION-ALUMNOS--
+alter table Documentacion add foreign key (matricula) references Alumnos (Matricula)
+
+--RELACION DE TABLA USUARIOS-ASESORES--
+alter table Usuarios add foreign key(id) references Asesores(Id)
+
 --TRIGGER PARA TABLA ALUMNOS INSERTAR--
-alter trigger InsertarAlum
+create trigger InsertarAlum
 on Alumnos
 after insert
 as
@@ -382,7 +397,7 @@ end
 
 
 --TRIGGER PARA TABLA ASESORES INSERTAR--
-alter trigger InsertarAsesor
+create trigger InsertarAsesor
 on Asesores
 after insert
 as
@@ -425,34 +440,38 @@ begin
 
 end
 
+---------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA CITAS INSERTAR--
-alter trigger InsertarCita
+create trigger InsertarCita
 on Citas
 after insert
 as
 begin 
-	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
-	select @Hora_Nuevo=Hora,@Hora_Viejo= null
+	declare Hora_Nuevo DATETIME, Hora_Viejo DATETIME
+	select @Hora_Nuevo=Fecha,@Hora_Viejo= null
 	from inserted
 	
 	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
 	end
+--------------------------------------------------------------------------------------------------------------------
 
+---------------------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA CITAS ELIMINAR--
 create trigger EliminarCita
 on Citas
 after delete
 as
 begin
-	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
-	select @Hora_Nuevo=Hora,@Hora_Viejo= null
+	declare Hora_Nuevo Datetime, Hora_Viejo DATETIME
+	select @Hora_Nuevo=Fecha,@Hora_Viejo= null
 	from deleted
  
  	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
 
 end
+-------------------------------------------------------------------------------------------------------------------
 
-
+----------------------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA CITAS ACTUALIZAR--
 create trigger ActualizarCita
 on Citas
@@ -467,20 +486,22 @@ begin
 	insert into Bitscora_Cita values(@Hora_Nuevo,Hora_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
 
 end
+--------------------------------------------------------------------------------------------------------------------
 
-
+--------------------------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA USUARIOS INSERTAR--
-alter trigger InsertarUsu
+create trigger InsertarUsu
 on Citas
 after insert
 as
 begin 
-	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	declare contraseña_Nuevo varchar(30), contraseña_Viejo varchar (30),
 	select @contraseña_Nuevo=contraseña ,@contraseña_Viejo= null
 	from inserted
 	
 	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
 	end
+-----------------------------------------------------------------------------------------------------------------------------
 
 --TRIGGER PARA TABLA USUARIOS ELIMINAR--
 create trigger EliminarUsu
@@ -496,7 +517,7 @@ begin
 
 end
 
-
+-----------------------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA USUARIOS ACTUALIZAR--
 create trigger ActualizarUsu
 on Citas
@@ -511,4 +532,5 @@ begin
 	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
 
 end
+--------------------------------------------------------------------------------------------------------------------------
 >>>>>>> origin/master
