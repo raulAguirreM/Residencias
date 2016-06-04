@@ -16,7 +16,7 @@ namespace ProyectoIngenieria
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Asesores());
+            Application.Run(new Menu());
         }
     }
 }

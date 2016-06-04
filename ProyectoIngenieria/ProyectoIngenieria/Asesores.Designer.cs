@@ -111,30 +111,34 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(81, 31);
+            this.textBox1.MaxLength = 30;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.textBox1.TabIndex = 0;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(81, 68);
+            this.textBox2.MaxLength = 30;
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 8;
+            this.textBox2.TabIndex = 1;
             // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(81, 109);
+            this.textBox3.MaxLength = 30;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 9;
+            this.textBox3.TabIndex = 2;
             // 
             // textBox4
             // 
             this.textBox4.Location = new System.Drawing.Point(322, 31);
+            this.textBox4.MaxLength = 100;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 10;
+            this.textBox4.TabIndex = 5;
             // 
             // comboBox1
             // 
@@ -145,21 +149,22 @@
             this.comboBox1.Location = new System.Drawing.Point(81, 153);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
-            this.comboBox1.TabIndex = 13;
+            this.comboBox1.TabIndex = 3;
             // 
             // maskedTextBox2
             // 
             this.maskedTextBox2.Location = new System.Drawing.Point(81, 191);
+            this.maskedTextBox2.Mask = "9999999999";
             this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox2.TabIndex = 14;
+            this.maskedTextBox2.Size = new System.Drawing.Size(78, 20);
+            this.maskedTextBox2.TabIndex = 4;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(322, 189);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 15;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Agregar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -167,9 +172,10 @@
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(321, 68);
+            this.textBox5.MaxLength = 30;
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 16;
+            this.textBox5.TabIndex = 6;
             // 
             // Asesores
             // 

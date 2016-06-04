@@ -1,13 +1,14 @@
 CREATE DATABASE Proyecto
 
+use proyecto
 CREATE TABLE Alumnos(
-Matricula int PRIMARY KEY NOT NULL,
+Matricula varchar(10) PRIMARY KEY NOT NULL,
 Nombre VARCHAR(30) NOT NULL,
 ApP VARCHAR (30) NOT NULL,
 ApM VARCHAR (30) NOT NULL,
 Carrera VARCHAR(20) NOT NULL,
 Telefono VARCHAR(10),
-Correo VARCHAR(50),
+Correo VARCHAR(100),
 NombreProyecto VARCHAR(80),
 Empresa VARCHAR(30))
 
@@ -24,7 +25,7 @@ Correo VARCHAR(50)
 
 CREATE TABLE Citas(
 Clave INT IDENTITY (1000,1) PRIMARY KEY,
-Matricula INT NOT NULL,
+Matricula varchar(10) NOT NULL,
 Id INT NOT NULL,
 Fecha DATETIME NOT NULL)
 
@@ -32,7 +33,7 @@ Fecha DATETIME NOT NULL)
 
 CREATE TABLE Documentacion(
 Folio INT IDENTITY (2000,1) PRIMARY KEY,
-matricula int,
+matricula varchar(10),
 Solicitud BIT,
 Anteproyecto BIT,
 Carta BIT,
@@ -46,19 +47,23 @@ CDInforme BIT,
 CDRes Bit,
 CartaAcep BIT)
 
-CREATE TABLE REQUISITOS(
+
+create TABLE REQUISITOS(
 ClveRequisitos int identity primary key,
 Matricula INT NOT NULL,
 Servicio BIT,
 Creditos BIT,
 Extra BIT,
+calificaciones int,
 fecha datetime
 )
+
+
 
 --CREACION TABLA USUARIOS
 create table Usuarios(
 id int primary key identity,
-usuario int,
+usuario varchar(30),
 contraseña varchar (30),
 tipo varchar (30))
 <<<<<<< HEAD
@@ -74,33 +79,36 @@ insert into Usuarios (usuario, contraseña, tipo) values (@usuario, @contraseña
 
 --AGREGAR ALUMNOS
 create proc AgregarAlumnos
-@Matricula int,
+@Matricula varchar(10),
 @Nombre varchar (30),
 @ApP varchar (30),
 @ApM varchar (30),
 @Carrera varchar (20),
 @Telefono varchar (10),
-@Correo varchar (50),
+@Correo varchar (100),
 @NombreProyecto varchar (80),
 @Empresa varchar (30)
 as 
 insert into Alumnos (Matricula, Nombre, ApP, ApM, Carrera, Telefono, Correo, NombreProyecto, Empresa) values (@Matricula,@Nombre, @ApP, @ApM, @Carrera, @Telefono, @Correo, @NombreProyecto, @Empresa)
 
 --AGREGAR ASESORES
+
 create proc AgregarAsesores
 @Nombre varchar (30),
 @ApP varchar (30),
 @ApM varchar (30),
 @Tipo varchar (20),
 @Telefono varchar (10),
-@Correo varchar (50),
+@Correo varchar (100),
 @Profesion varchar (30)
 as
+begin
 insert into Asesores (Nombre, ApP, ApM, Tipo, Telefono, Correo, Profesion) values ( @Nombre, @ApP, @ApM, @Tipo, @Telefono, @Correo, @Profesion)
+end
 
 --AGREGAR CITAS
 create proc AgregarCitas
-@Matricula int,
+@Matricula varchar(10),
 @Id int,
 @Fecha datetime
 as 
@@ -112,6 +120,7 @@ insert into Citas (Matricula, Id,Hora) values (@Matricula, @Id, @Hora)
 
 --AGREGAR DOCUMENTACION
 create proc AgregarDocumentacion
+@matricula varchar(10),
 @Solicitud bit,
 @Anteproyecto bit,
 @Carta bit,
@@ -128,14 +137,18 @@ as
 insert into Documentacion (Solicitud, Anteproyecto, Carta, Dictamen, Asignacion, AsesorExt, Seguimiento, Registro, CartaAgradecimiento, CDInforme, CDRes, CartaAcep) values (@Solicitud, @Anteproyecto, @Carta, @Dictamen, @Asignacion, @AsesorExt, @Seguimiento, @Registro, @CartaAgradecimiento, @CDInforme, @CDRes, @CartaAcep)
 
 --AGREAGAR REQUISITOS
-create proc AgregarRequisistos
-@Matricula int, 
-@Servicio bit, 
-@Creditos bit, 
-@Extra bit
-as
-insert into REQUISITOS (Matricula, Servicio, Creditos, Extra) values ( @Matricula, @Servicio, @Creditos, @Extra)
 
+create proc AgregarRequisistos
+@Matricula varchar(10), 
+@Servicio bit, 
+@Creditos bit,
+@Calificacion int,
+@Extra bit,
+@fecha datetime
+as
+begin
+insert into REQUISITOS (Matricula, Servicio, Creditos, calificaciones, Extra,fecha) values ( @Matricula, @Servicio, @Creditos, @Calificacion, @Extra,@fecha)
+end
 
 
 --AGREGAR USUARIO
@@ -151,13 +164,13 @@ insert into Usuarios (usuario, contraseña, tipo) values (@usuario, @contraseña
 
 --MODIFICAR ALUMNOS
 create proc modAlumnos
-@Matricula int,
+@Matricula Varchar(10),
 @Nombre varchar (30),
 @ApP varchar (30),
 @ApM varchar (30),
 @Carrera varchar (20),
 @Telefono varchar (10),
-@Correo varchar (50),
+@Correo varchar (100),
 @NombreProyecto varchar (80),
 @Empresa varchar (30)
 as begin
@@ -173,7 +186,7 @@ create proc modAsesores
 @ApM varchar (30),
 @Tipo varchar (20),
 @Telefono varchar (10),
-@Correo varchar (50),
+@Correo varchar (100),
 @Profesion varchar (30)
 as begin
 	update Asesores set Nombre=@Nombre, ApP=@ApP, ApM=@ApM, Tipo=@Tipo, Telefono=@Telefono, Correo=@Correo, Profesion=@Profesion
@@ -212,7 +225,7 @@ as begin
 
 ---MODIFICAR REGISTROS 
 create proc modRegistros
-@Matricula int, 
+@Matricula varchar(10), 
 @Servicio bit, 
 @Creditos bit, 
 @Extra bit
@@ -286,8 +299,8 @@ create table Bitscora_Alum
 id_BitAl int identity primary key,
 Telefono_nuevo varchar (10),
 Telefono_viejo varchar (10),
-Correo_nuevo varchar (50),
-Correo_viejo varchar (50),
+Correo_nuevo varchar (100),
+Correo_viejo varchar (100),
 operacion varchar(10) not null,
 usuario varchar(60) not null,
 fecha datetime not null,
@@ -301,8 +314,8 @@ create table Bitscora_Asesor
 id_BitAs int identity primary key,
 Telefono_nuevo varchar (10),
 Telefono_viejo varchar (10),
-Correo_nuevo varchar (50),
-Correo_viejo varchar (50),
+Correo_nuevo varchar (100),
+Correo_viejo varchar (100),
 operacion varchar(10) not null,
 usuario varchar(60) not null,
 fecha datetime not null,
@@ -534,3 +547,5 @@ begin
 end
 --------------------------------------------------------------------------------------------------------------------------
 >>>>>>> origin/master
+
+select * from asesores

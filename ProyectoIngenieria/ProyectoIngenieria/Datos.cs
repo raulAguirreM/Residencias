@@ -64,5 +64,37 @@ namespace ProyectoIngenieria
                 return false;
             }
         }
+
+        public bool insertarRequisitos(string matricula, bool serv,bool credi, int calif, bool extra, string fecha)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand("AgregarRequisistos", abrir());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Matricula", SqlDbType.VarChar, 10);
+                comando.Parameters.Add("@Servicio", SqlDbType.Bit);
+                comando.Parameters.Add("@Creditos", SqlDbType.Bit);
+                comando.Parameters.Add("@Calificacion", SqlDbType.Int);
+                comando.Parameters.Add("@Extra", SqlDbType.Bit);
+                comando.Parameters.Add("@fecha", SqlDbType.DateTime);
+                
+                comando.Parameters["@Matricula"].Value = matricula;
+                comando.Parameters["@Servicio"].Value = serv;
+                comando.Parameters["@Creditos"].Value = credi;
+                comando.Parameters["@Calificacion"].Value = calif;
+                comando.Parameters["@Extra"].Value = extra;
+                comando.Parameters["@fecha"].Value = fecha;
+                
+
+                comando.ExecuteNonQuery();
+                cerrar();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
     }
 }
