@@ -39,6 +39,8 @@
       <HintPath>..\..\..\Documents\programacion\itextsharp.pdfa.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -68,6 +70,7 @@
     <Compile Include="Citas.Designer.cs">
       <DependentUpon>Citas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Datos.cs" />
     <Compile Include="Documentacion.cs">
       <SubType>Form</SubType>
     </Compile>
