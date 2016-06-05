@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Net.Mail;
 
 namespace ProyectoIngenieria
 {
@@ -96,5 +97,33 @@ namespace ProyectoIngenieria
                 return false;
             }
         }
+
+        /*
+         * Cliente SMTP
+         * Gmail:  smtp.gmail.com  puerto:587
+         */ 
+        SmtpClient server = new SmtpClient("smtp.gmail.com", 587);
+
+        public bool correo(string correo, string pass)
+        {
+            /*
+             * Autenticacion en el Servidor
+             * Utilizaremos nuestra cuenta de correo
+             *
+             * Direccion de Correo (Gmail o Hotmail)
+             * y Contrasena correspondiente
+             */
+            server.Credentials = new System.Net.NetworkCredential(correo, pass);
+            server.EnableSsl = true;
+            return true;
+        }
+
+        public void MandarCorreo(MailMessage mensaje)
+        {
+            server.Send(mensaje);
+        }
+ 
+
+
     }
 }
