@@ -453,76 +453,70 @@ begin
 
 end
 
----------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA CITAS INSERTAR--
 create trigger InsertarCita
 on Citas
 after insert
 as
 begin 
-	declare Hora_Nuevo DATETIME, Hora_Viejo DATETIME
-	select @Hora_Nuevo=Fecha,@Hora_Viejo= null
+	declare @Hora_Nuevo DATETIME ,@Hora_Viejo DATETIME
+	select @Hora_Nuevo=Hora,@Hora_Viejo= null
 	from inserted
 	
 	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
 	end
---------------------------------------------------------------------------------------------------------------------
 
----------------------------------------------------------------------------------------------------------------------
 --TRIGGER PARA TABLA CITAS ELIMINAR--
 create trigger EliminarCita
 on Citas
 after delete
 as
 begin
-	declare Hora_Nuevo Datetime, Hora_Viejo DATETIME
-	select @Hora_Nuevo=Fecha,@Hora_Viejo= null
+	declare @Hora_Nuevo DATETIME ,@Hora_Viejo DATETIME
+	select @Hora_Nuevo=Hora,@Hora_Viejo= null
 	from deleted
  
  	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'ELIMINADO',suser_name(),getdate(),@@servername) 
 
 end
--------------------------------------------------------------------------------------------------------------------
 
-----------------------------------------------------------------------------------------------------------------------
+
 --TRIGGER PARA TABLA CITAS ACTUALIZAR--
 create trigger ActualizarCita
 on Citas
 for update 
 as
 begin 
-	declare Hora_Nuevo DATETIME ,Hora_Viejo DATETIME
+	declare @Hora_Nuevo DATETIME ,@Hora_Viejo DATETIME
 	set @Hora_Nuevo=(select Hora from inserted)
 	----
-	set Hora_Viejo =(select Hora from deleted)
+	set @Hora_Viejo =(select Hora from deleted)
 	
-	insert into Bitscora_Cita values(@Hora_Nuevo,Hora_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
+	insert into Bitscora_Cita values(@Hora_Nuevo,@Hora_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
 
 end
---------------------------------------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------------------------------------
+
 --TRIGGER PARA TABLA USUARIOS INSERTAR--
 create trigger InsertarUsu
-on Citas
+on Usuarios
 after insert
 as
 begin 
-	declare contraseña_Nuevo varchar(30), contraseña_Viejo varchar (30),
+	declare @contraseña_Nuevo varchar (30),@contraseña_Viejo varchar (30)
 	select @contraseña_Nuevo=contraseña ,@contraseña_Viejo= null
 	from inserted
 	
 	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'INSERTADO',suser_name(),getdate(),@@servername) 
 	end
------------------------------------------------------------------------------------------------------------------------------
 
 --TRIGGER PARA TABLA USUARIOS ELIMINAR--
 create trigger EliminarUsu
-on Citas
+on Usuarios
 after delete
 as
 begin
-	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	declare @contraseña_Nuevo varchar (30),@contraseña_Viejo varchar (30)
 	select @contraseña_Nuevo=contraseña ,@contraseña_Viejo= null
 	from deleted
  
@@ -530,14 +524,14 @@ begin
 
 end
 
------------------------------------------------------------------------------------------------------------------------
+
 --TRIGGER PARA TABLA USUARIOS ACTUALIZAR--
 create trigger ActualizarUsu
-on Citas
+on Usuarios
 for update 
 as
 begin 
-	declare contraseña_Nuevo varchar (30),contraseña_Viejo varchar (30),
+	declare @contraseña_Nuevo varchar (30),@contraseña_Viejo varchar (30)
 	set @contraseña_Nuevo=(select contraseña  from inserted)
 	----
 	set @contraseña_Viejo =(select contraseña  from deleted)
@@ -545,6 +539,7 @@ begin
 	insert into Bitscora_Usu values(@contraseña_Nuevo,@contraseña_Viejo,'ACTUALIZADO',suser_name(),getdate(),@@servername) 
 
 end
+
 --------------------------------------------------------------------------------------------------------------------------
 >>>>>>> origin/master
 
