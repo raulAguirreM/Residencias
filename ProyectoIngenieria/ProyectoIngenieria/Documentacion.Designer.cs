@@ -43,6 +43,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.documentacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asesorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bttnAgreg = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -187,15 +188,26 @@
             // asesorToolStripMenuItem
             // 
             this.asesorToolStripMenuItem.Name = "asesorToolStripMenuItem";
-            this.asesorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.asesorToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.asesorToolStripMenuItem.Text = "Asesor";
             this.asesorToolStripMenuItem.Click += new System.EventHandler(this.asesorToolStripMenuItem_Click);
+            // 
+            // bttnAgreg
+            // 
+            this.bttnAgreg.Location = new System.Drawing.Point(310, 255);
+            this.bttnAgreg.Name = "bttnAgreg";
+            this.bttnAgreg.Size = new System.Drawing.Size(75, 23);
+            this.bttnAgreg.TabIndex = 25;
+            this.bttnAgreg.Text = "Agregar";
+            this.bttnAgreg.UseVisualStyleBackColor = true;
+            this.bttnAgreg.Click += new System.EventHandler(this.bttnAgreg_Click);
             // 
             // Documentacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(415, 290);
+            this.Controls.Add(this.bttnAgreg);
             this.Controls.Add(this.checkBox12);
             this.Controls.Add(this.checkBox11);
             this.Controls.Add(this.checkBox10);
@@ -236,5 +248,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem documentacionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem asesorToolStripMenuItem;
+        private System.Windows.Forms.Button bttnAgreg;
     }
 }

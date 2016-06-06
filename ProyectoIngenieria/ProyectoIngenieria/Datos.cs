@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using System.Net.Mail;
+using System.Windows.Forms;
 
 namespace ProyectoIngenieria
 {
@@ -122,7 +123,112 @@ namespace ProyectoIngenieria
         {
             server.Send(mensaje);
         }
- 
+
+        public bool InsertarDoc(bool Solicitud, bool Anteproyecto, bool Carta, bool Dictamen, bool Asignacion, bool AsesorExt, bool Seguimiento, bool Registro, bool CartaAgrad, bool CDInforme, bool CDRes, bool CartaAcep)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand("AgregarDocumentacion", abrir());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Solicitud", SqlDbType.Bit);
+                comando.Parameters.Add("@Anteproyecto", SqlDbType.Bit);
+                comando.Parameters.Add("@Carta", SqlDbType.Bit);
+                comando.Parameters.Add("@Dictamen", SqlDbType.Bit);
+                comando.Parameters.Add("@Asignacion", SqlDbType.Bit);
+                comando.Parameters.Add("@AsesorExt", SqlDbType.Bit);
+                comando.Parameters.Add("@Seguimiento", SqlDbType.Bit);
+                comando.Parameters.Add("@Registro", SqlDbType.Bit);
+                comando.Parameters.Add("@CartaAgradecimiento", SqlDbType.Bit);
+                comando.Parameters.Add("@CDInforme", SqlDbType.Bit);
+                comando.Parameters.Add("@CDRes", SqlDbType.Bit);
+                comando.Parameters.Add("@CartaAcep", SqlDbType.Bit);
+
+                comando.Parameters["@Solicitud"].Value = Solicitud;
+                comando.Parameters["@Anteproyecto"].Value = Anteproyecto;
+                comando.Parameters["@Carta"].Value = Carta;
+                comando.Parameters["@Dictamen"].Value = Dictamen;
+                comando.Parameters["@Asignacion"].Value = Asignacion;
+                comando.Parameters["@AsesorExt"].Value = AsesorExt;
+                comando.Parameters["@Seguimiento"].Value = Seguimiento;
+                comando.Parameters["@Registro"].Value = Registro;
+                comando.Parameters["@CartaAgradecimiento"].Value = CartaAgrad;
+                comando.Parameters["@CDInforme"].Value = CDInforme;
+                comando.Parameters["@CDRes"].Value = CDRes;
+                comando.Parameters["@CartaAcep"].Value = CartaAcep;
+
+                comando.ExecuteNonQuery();
+                cerrar();
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Convert.ToString(ex));
+                return false;
+            }
+
+        }
+
+        public bool ActualizarDoc(int Folio, bool Solicitud, bool Anteproyecto, bool Carta, bool Dictamen, bool Asignacion, bool AsesorExt, bool Seguimiento, bool Registro, bool CartaAgrad, bool CDInforme, bool CDRes, bool CartaAcep)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand("modDocumentacion", abrir());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Folio", SqlDbType.Int);
+                comando.Parameters.Add("@Solicitud", SqlDbType.Bit);
+                comando.Parameters.Add("@Anteproyecto", SqlDbType.Bit);
+                comando.Parameters.Add("@Carta", SqlDbType.Bit);
+                comando.Parameters.Add("@Dictamen", SqlDbType.Bit);
+                comando.Parameters.Add("@Asignacion", SqlDbType.Bit);
+                comando.Parameters.Add("@AsesorExt", SqlDbType.Bit);
+                comando.Parameters.Add("@Seguimiento", SqlDbType.Bit);
+                comando.Parameters.Add("@Registro", SqlDbType.Bit);
+                comando.Parameters.Add("@CartaAgradecimiento", SqlDbType.Bit);
+                comando.Parameters.Add("@CDInforme", SqlDbType.Bit);
+                comando.Parameters.Add("@CDRes", SqlDbType.Bit);
+                comando.Parameters.Add("@CartaAcep", SqlDbType.Bit);
+
+                comando.Parameters["@Folio"].Value = Folio;
+                comando.Parameters["@Solicitud"].Value = Solicitud;
+                comando.Parameters["@Anteproyecto"].Value = Anteproyecto;
+                comando.Parameters["@Carta"].Value = Carta;
+                comando.Parameters["@Dictamen"].Value = Dictamen;
+                comando.Parameters["@Asignacion"].Value = Asignacion;
+                comando.Parameters["@AsesorExt"].Value = AsesorExt;
+                comando.Parameters["@Seguimiento"].Value = Seguimiento;
+                comando.Parameters["@Registro"].Value = Registro;
+                comando.Parameters["@CartaAgradecimiento"].Value = CartaAgrad;
+                comando.Parameters["@CDInforme"].Value = CDInforme;
+                comando.Parameters["@CDRes"].Value = CDRes;
+                comando.Parameters["@CartaAcep"].Value = CartaAcep;
+
+                comando.ExecuteNonQuery();
+                cerrar();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+        }
+
+        public DataSet muestra(string Query)
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(Query, abrir());
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                cerrar();
+                return ds;
+            }
+            catch (Exception)
+            { return null; }
+
+        }
 
 
     }
