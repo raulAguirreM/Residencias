@@ -66,7 +66,70 @@ namespace ProyectoIngenieria
                 return false;
             }
         }
+        public bool ModificarAlumnos(int matricula, string nombre, string paterno, string materno, string carrera, string tel, string correo, string proyecto, string empresa)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand("modAlumnos", abrir());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Matricula", SqlDbType.Int);
+                comando.Parameters.Add("@Nombre", SqlDbType.VarChar, 30);
+                comando.Parameters.Add("@ApP", SqlDbType.VarChar, 30);
+                comando.Parameters.Add("@ApM", SqlDbType.VarChar, 30);
+                comando.Parameters.Add("@Carrera", SqlDbType.VarChar, 20);
+                comando.Parameters.Add("@Telefono", SqlDbType.VarChar, 10);
+                comando.Parameters.Add("@Correo", SqlDbType.VarChar, 50);
+                comando.Parameters.Add("@NombreProyecto", SqlDbType.VarChar, 80);
+                comando.Parameters.Add("@Empresa", SqlDbType.VarChar, 30);
 
+                comando.Parameters["@Matricula"].Value = matricula;
+                comando.Parameters["@Nombre"].Value = nombre;
+                comando.Parameters["@ApP"].Value = paterno;
+                comando.Parameters["@ApM"].Value = materno;
+                comando.Parameters["@Carrera"].Value = carrera;
+                comando.Parameters["@Telefono"].Value = tel;
+                comando.Parameters["@Correo"].Value = correo;
+                comando.Parameters["@NombreProyecto"].Value = proyecto;
+                comando.Parameters["@Empresa"].Value = empresa;
+
+                comando.ExecuteNonQuery();
+                cerrar();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool Elim_Alumnos(int matricula)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand("elimAlumnos", abrir());
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("@Matricula", SqlDbType.Int);
+                comando.Parameters["@Matricula"].Value = matricula;
+                comando.ExecuteNonQuery();
+                cerrar();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public DataSet verAlumno(string alumno)
+        {
+            try
+            {
+                SqlDataAdapter da = new SqlDataAdapter(alumno, abrir());
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                cerrar();
+                return ds;
+            }
+            catch (Exception) { return null; }
+        }
         public bool insertarRequisitos(string matricula, bool serv,bool credi, int calif, bool extra, string fecha)
         {
             try

@@ -32,12 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp">
-      <HintPath>..\..\..\Documents\programacion\itextsharp.dll</HintPath>
-    </Reference>
-    <Reference Include="itextsharp.pdfa">
-      <HintPath>..\..\..\Documents\programacion\itextsharp.pdfa.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -95,6 +89,12 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="modAlumno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="modAlumno.Designer.cs">
+      <DependentUpon>modAlumno.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modificar_Documentacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="modAlumno.resx">
+      <DependentUpon>modAlumno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Modificar_Documentacion.resx">
       <DependentUpon>Modificar_Documentacion.cs</DependentUpon>
