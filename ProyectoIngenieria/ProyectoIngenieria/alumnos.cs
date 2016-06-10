@@ -20,6 +20,20 @@ namespace ProyectoIngenieria
         private void button1_Click(object sender, EventArgs e)
         {
 
+<<<<<<< HEAD
+=======
+            Datos obj = new Datos();
+            bool f = obj.AgregarAlumnos(Convert.ToInt32(mtb_matricula.Text), txb_nombre.Text, txb_paterno.Text, txb_materno.Text, cb_carrera.Text, mtb_tel.Text, txb_correo.Text, txb_proyecto.Text, txb_empresa.Text);
+            if (f == true)
+            {
+                MessageBox.Show("Datos agregados", "Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+
+>>>>>>> origin/master
         }
     }
 }
