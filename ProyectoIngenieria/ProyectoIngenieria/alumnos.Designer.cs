@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.mtb_tel = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -39,38 +37,24 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txb_nombre = new System.Windows.Forms.TextBox();
+            this.txb_paterno = new System.Windows.Forms.TextBox();
+            this.txb_materno = new System.Windows.Forms.TextBox();
+            this.txb_correo = new System.Windows.Forms.TextBox();
+            this.txb_proyecto = new System.Windows.Forms.TextBox();
+            this.txb_empresa = new System.Windows.Forms.TextBox();
+            this.cb_carrera = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.mtb_matricula = new System.Windows.Forms.MaskedTextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // maskedTextBox1
+            // mtb_tel
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(76, 26);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 0;
-            // 
-            // maskedTextBox2
-            // 
-            this.maskedTextBox2.Location = new System.Drawing.Point(76, 203);
-            this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Matricula";
+            this.mtb_tel.Location = new System.Drawing.Point(76, 203);
+            this.mtb_tel.Name = "mtb_tel";
+            this.mtb_tel.Size = new System.Drawing.Size(100, 20);
+            this.mtb_tel.TabIndex = 1;
             // 
             // label2
             // 
@@ -144,59 +128,59 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Empresa";
             // 
-            // textBox1
+            // txb_nombre
             // 
-            this.textBox1.Location = new System.Drawing.Point(76, 63);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 11;
+            this.txb_nombre.Location = new System.Drawing.Point(76, 63);
+            this.txb_nombre.Name = "txb_nombre";
+            this.txb_nombre.Size = new System.Drawing.Size(100, 20);
+            this.txb_nombre.TabIndex = 11;
             // 
-            // textBox2
+            // txb_paterno
             // 
-            this.textBox2.Location = new System.Drawing.Point(76, 102);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 12;
+            this.txb_paterno.Location = new System.Drawing.Point(76, 102);
+            this.txb_paterno.Name = "txb_paterno";
+            this.txb_paterno.Size = new System.Drawing.Size(100, 20);
+            this.txb_paterno.TabIndex = 12;
             // 
-            // textBox3
+            // txb_materno
             // 
-            this.textBox3.Location = new System.Drawing.Point(76, 136);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 13;
+            this.txb_materno.Location = new System.Drawing.Point(76, 136);
+            this.txb_materno.Name = "txb_materno";
+            this.txb_materno.Size = new System.Drawing.Size(100, 20);
+            this.txb_materno.TabIndex = 13;
             // 
-            // textBox4
+            // txb_correo
             // 
-            this.textBox4.Location = new System.Drawing.Point(310, 26);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 14;
+            this.txb_correo.Location = new System.Drawing.Point(310, 26);
+            this.txb_correo.Name = "txb_correo";
+            this.txb_correo.Size = new System.Drawing.Size(100, 20);
+            this.txb_correo.TabIndex = 14;
             // 
-            // textBox5
+            // txb_proyecto
             // 
-            this.textBox5.Location = new System.Drawing.Point(310, 63);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 15;
+            this.txb_proyecto.Location = new System.Drawing.Point(310, 63);
+            this.txb_proyecto.Name = "txb_proyecto";
+            this.txb_proyecto.Size = new System.Drawing.Size(100, 20);
+            this.txb_proyecto.TabIndex = 15;
             // 
-            // textBox6
+            // txb_empresa
             // 
-            this.textBox6.Location = new System.Drawing.Point(310, 102);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 16;
+            this.txb_empresa.Location = new System.Drawing.Point(310, 102);
+            this.txb_empresa.Name = "txb_empresa";
+            this.txb_empresa.Size = new System.Drawing.Size(100, 20);
+            this.txb_empresa.TabIndex = 16;
             // 
-            // comboBox1
+            // cb_carrera
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cb_carrera.FormattingEnabled = true;
+            this.cb_carrera.Items.AddRange(new object[] {
             "Sistemas",
             "Industrial ",
             "Gestion"});
-            this.comboBox1.Location = new System.Drawing.Point(76, 169);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 21);
-            this.comboBox1.TabIndex = 17;
+            this.cb_carrera.Location = new System.Drawing.Point(76, 169);
+            this.cb_carrera.Name = "cb_carrera";
+            this.cb_carrera.Size = new System.Drawing.Size(100, 21);
+            this.cb_carrera.TabIndex = 17;
             // 
             // button1
             // 
@@ -204,22 +188,41 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
-            this.button1.Text = "button1";
+            this.button1.Text = "AGREGAR";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // mtb_matricula
+            // 
+            this.mtb_matricula.Location = new System.Drawing.Point(76, 29);
+            this.mtb_matricula.Name = "mtb_matricula";
+            this.mtb_matricula.Size = new System.Drawing.Size(100, 20);
+            this.mtb_matricula.TabIndex = 20;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(50, 13);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "Matricula";
             // 
             // alumnos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 261);
+            this.Controls.Add(this.mtb_matricula);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.cb_carrera);
+            this.Controls.Add(this.txb_empresa);
+            this.Controls.Add(this.txb_proyecto);
+            this.Controls.Add(this.txb_correo);
+            this.Controls.Add(this.txb_materno);
+            this.Controls.Add(this.txb_paterno);
+            this.Controls.Add(this.txb_nombre);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -228,9 +231,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.maskedTextBox2);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.mtb_tel);
             this.Name = "alumnos";
             this.Text = "alumnos";
             this.ResumeLayout(false);
@@ -239,10 +240,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MaskedTextBox mtb_tel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -251,13 +249,15 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txb_nombre;
+        private System.Windows.Forms.TextBox txb_paterno;
+        private System.Windows.Forms.TextBox txb_materno;
+        private System.Windows.Forms.TextBox txb_correo;
+        private System.Windows.Forms.TextBox txb_proyecto;
+        private System.Windows.Forms.TextBox txb_empresa;
+        private System.Windows.Forms.ComboBox cb_carrera;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MaskedTextBox mtb_matricula;
+        private System.Windows.Forms.Label label1;
     }
 }
